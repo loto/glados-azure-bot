@@ -20,8 +20,8 @@ const azureTableClient = new botbuilder_azure.AzureTableClient(tableName, proces
 const tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azureTableClient);
 
 const bot = new builder.UniversalBot(connector, function (session, args) {
-    session.send('You reached the default message handler. You said \'%s\'.', session.message.text);
-    session.beginDialog();
+    session.send("I didn't understand your last message.");
+    session.beginDialog('HelpDialog');
 });
 bot.set('storage', tableStorage);
 
@@ -34,8 +34,8 @@ bot.recognizer(recognizer);
 
 bot.dialog('GreetingDialog',
     (session) => {
-        session.send("I didn't understand your last message.");
-        session.endDialog('HelpDialog');
+        session.send('You reached the Greeting intent. You said \'%s\'.', session.message.text);
+        session.endDialog();
     }
 ).triggerAction({
     matches: 'Greeting'

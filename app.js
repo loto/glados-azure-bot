@@ -58,3 +58,21 @@ bot.dialog('CancelDialog',
 ).triggerAction({
     matches: 'Cancel'
 })
+
+bot.dialog('IncidentListDialog',
+    (session) => {
+        session.send('You reached the Incident.List intent. You said \'%s\'.', session.message.text);
+        session.endDialog();
+    }
+).triggerAction({
+    matches: 'Incident.List'
+})
+
+bot.dialog('IncidentShowDialog',
+    (session) => {
+        session.send('You reached the Incident.Show intent. You said \'%s\'.', session.message.text);
+        session.endDialog();
+    }
+).triggerAction({
+    matches: 'Incident.Show'
+})

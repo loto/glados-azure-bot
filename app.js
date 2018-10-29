@@ -2,6 +2,7 @@
 A simple Language Understanding (LUIS) bot for the Microsoft Bot Framework. 
 -----------------------------------------------------------------------------*/
 
+require('dotenv').config();
 var restify = require('restify');
 var builder = require('botbuilder');
 var botbuilder_azure = require("botbuilder-azure");
@@ -9,7 +10,7 @@ var botbuilder_azure = require("botbuilder-azure");
 // Setup Restify Server
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
-   console.log('%s listening to %s', server.name, server.url); 
+    console.log('%s listening to %s', server.name, server.url);
 });
   
 // Create chat connector for communicating with the Bot Framework Service

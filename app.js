@@ -32,7 +32,7 @@ const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v2.0/apps/' + luisApp
 const recognizer = new builder.LuisRecognizer(LuisModelUrl);
 bot.recognizer(recognizer);
 
-const incidents = require('./lib/incidents/incident');
+// const incidents = require('./lib/incidents/incident');
 
 bot.dialog('GreetingDialog',
     (session) => {
@@ -62,7 +62,7 @@ bot.dialog('CancelDialog',
 })
 
 bot.dialog('IncidentListDialog',
-    async function (session) {
+    async function (session, args) {
         let response;
 
         try {

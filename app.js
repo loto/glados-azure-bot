@@ -15,15 +15,20 @@ const connector = new builder.ChatConnector({
 });
 server.post('/api/messages', connector.listen());
 
-const tableName = 'botdata';
-const azureTableClient = new botbuilder_azure.AzureTableClient(tableName, process.env['AzureWebJobsStorage']);
-const tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azureTableClient);
+let storage;
+if (process.env.NODE_ENV === 'development') {
+    storage = new builder.MemoryBotStorage();
+} else {
+    const tableName = 'botdata';
+    const azureTableClient = new botbuilder_azure.AzureTableClient(tableName, process.env['AzureWebJobsStorage']);
+    storage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azureTableClient);
+}
 
 const bot = new builder.UniversalBot(connector, function (session, args) {
     session.send("I didn't understand your last message.");
     session.beginDialog('HelpDialog');
 });
-bot.set('storage', tableStorage);
+bot.set('storage', storage);
 
 const luisAppId = process.env.LuisAppId;
 const luisAPIKey = process.env.LuisAPIKey;

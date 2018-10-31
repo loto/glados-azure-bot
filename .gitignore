@@ -2,11 +2,11 @@ node_modules/
 *.js.map
 package-lock.json
 
-# Dot env
-.env
-
 # VS Code
 .vscode/
 
 # File system
 .DS_Store
+
+# Dot env
+.env

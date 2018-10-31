@@ -7,6 +7,3 @@ package-lock.json
 
 # VS Code
 .vscode/
-
-# File system
-.DS_Store

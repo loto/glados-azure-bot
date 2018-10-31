@@ -32,8 +32,6 @@ const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v2.0/apps/' + luisApp
 const recognizer = new builder.LuisRecognizer(LuisModelUrl);
 bot.recognizer(recognizer);
 
-const incidents = require('./lib/incidents/incident');
-
 bot.dialog('GreetingDialog',
     (session) => {
         session.send('You reached the Greeting intent. You said \'%s\'.', session.message.text);
@@ -62,16 +60,8 @@ bot.dialog('CancelDialog',
 })
 
 bot.dialog('IncidentListDialog',
-    async (session) => {
-        let response;
-
-        try {
-            response = await incidents.all();
-        } catch(error) {
-            response = error.message;
-        }
-
-        session.send(response);
+    (session) => {
+        session.send('You reached the Incident.List intent. You said \'%s\'.', session.message.text);
         session.endDialog();
     }
 ).triggerAction({

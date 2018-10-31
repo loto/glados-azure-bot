@@ -62,12 +62,12 @@ bot.dialog('CancelDialog',
 })
 
 bot.dialog('IncidentListDialog',
-    async (session) => {
+    async function (session) {
         let response;
 
         try {
             response = await incidents.all();
-        } catch(error) {
+        } catch (error) {
             response = error.message;
         }
 

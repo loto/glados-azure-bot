@@ -83,8 +83,31 @@ bot.dialog('IncidentListDialog',
 })
 
 bot.dialog('IncidentShowDialog',
-    (session) => {
-        session.send('You reached the Incident.Show intent. You said \'%s\'.', session.message.text);
+    async (session, args) => {
+        var intent = args.intent;
+        var input = builder.EntityRecognizer.findEntity(intent.entities, 'Incident.Number');
+
+        if (!input) {
+            session.send('Your incident number is invalid, it should be formatted as following: prefix INC/inc/Inc and 7 digits. `inc1234567` is valid for instance.');
+        } else {
+            try {
+                let incident = await incidents.find(input.entity);
+                let message = [
+                    `[OPENED AT] ${incident.opened_at}`,
+                    `[PRIORITY] ${incident.priority}`,
+                    `[SEVERITY] ${incident.severity}`,
+                    `[ESCALATION] ${incident.escalation}`,
+                    `[IMPACT] ${incident.impact}`,
+                    `[NUMBER] ${incident.number}`,
+                    `[DESCRIPTION] ${incident.description}`,
+                    `[COMMENTS] ${incident.comments}`
+                ].join(' ');
+                session.send(message);
+            } catch (error) {
+                session.send(`An unexpected error occured: ${error.message}`);
+            }
+        }
+
         session.endDialog();
     }
 ).triggerAction({

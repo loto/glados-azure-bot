@@ -51,9 +51,6 @@ bot.dialog('GreetingDialog',
 bot.dialog('HelpDialog',
     (session) => {
         session.send('I can help you with incidents. I can either list all of them or provide you details about a specific one.');
-        session.send(`agent > ${session.message.agent}`);
-        session.send(`source > ${session.message.source}`);
-        session.send(`user > ${Object.entries(session.message.user).map(pair => { return `${pair[0]}: ${pair[1]}`; }).join(', ')}`);
         session.endDialog();
     }
 ).triggerAction({
